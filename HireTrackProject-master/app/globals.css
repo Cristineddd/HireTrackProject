@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  /* Design system color variables (Light theme) */
+  --color-primary: hsl(217 85% 55%);    /* blue */
+  --color-secondary: hsl(210 15% 96%);  /* very light gray */
+  --color-accent: hsl(145 70% 45%);     /* green */
+  --color-background: hsl(210 20% 98%); /* page background */
+  --color-foreground: hsl(215 25% 15%); /* primary text */
+
+  /* legacy vars used elsewhere */
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  
+  /* Font families */
+  --font-inter: var(--font-inter);
+  --font-poppins: var(--font-poppins);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme adjustments */
+    --color-primary: hsl(217 85% 65%);
+    --color-secondary: hsl(210 10% 12%);
+    --color-accent: hsl(145 60% 55%);
+    --color-background: hsl(210 15% 6%);
+    --color-foreground: hsl(215 20% 96%);
+
+    --background: var(--color-background);
+    --foreground: var(--color-foreground);
+  }
+}
+
+body {
+  background: linear-gradient(180deg, rgba(250,250,252,1) 0%, rgba(245,247,250,1) 100%);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Use Poppins for all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Common max-width container used across pages */
+.container {
+  max-width: 72rem; /* equivalent to Tailwind's 6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({ variant = "default", size = "md"
   const variants: Record<string,string> = {
     default: "bg-indigo-600 text-white hover:bg-indigo-700",
     ghost: "bg-transparent text-slate-700 hover:bg-slate-100",
-    outline: "border-2 border-current hover:bg-opacity-10",
+    outline: "border-2 border-slate-300 text-slate-700 hover:bg-slate-50",
   };
 
   return (

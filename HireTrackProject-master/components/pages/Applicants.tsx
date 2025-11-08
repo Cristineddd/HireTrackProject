@@ -19,6 +19,9 @@ import {
   MapPin,
   MoreHorizontal
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface Applicant {
   id: number;
@@ -160,52 +163,6 @@ const Applicants = () => {
     }
   };
 
-  // Custom Components
-  const Card = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
-    <div className={`bg-white rounded-xl border border-slate-200 shadow-sm ${className}`} {...props}>
-      {children}
-    </div>
-  );
-
-  const Badge = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${className}`} {...props}>
-      {children}
-    </span>
-  );
-
-  const Button = ({
-    children,
-    className = "",
-    variant = "default",
-    size = "default",
-    ...props
-  }: {
-    children: React.ReactNode;
-    className?: string;
-    variant?: "default" | "outline" | "ghost";
-    size?: "default" | "sm";
-    [key: string]: any
-  }) => {
-    const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
-
-    const variantStyles = {
-      default: "bg-indigo-600 text-white hover:bg-indigo-700",
-      outline: "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50",
-      ghost: "text-slate-700 hover:bg-slate-100"
-    };
-
-    const sizeStyles = {
-      default: "px-4 py-3 text-sm",
-      sm: "px-3 py-2 text-xs"
-    };
-
-    return (
-      <button className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`} {...props}>
-        {children}
-      </button>
-    );
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 p-6">
       {/* Header */}
@@ -230,7 +187,7 @@ const Applicants = () => {
       </div>
 
       {/* Search and Filter Bar */}
-      <Card className="p-6 mb-6">
+      <div className="p-6 mb-6 bg-white shadow-sm rounded-md">
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
           <div className="flex flex-col sm:flex-row gap-4 flex-1">
             <div className="relative flex-1 max-w-md">
@@ -270,10 +227,10 @@ const Applicants = () => {
             Showing {filteredApplicants.length} of {applicants.length} applicants
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Applicants Table */}
-      <Card>
+      <div className="bg-white shadow-sm rounded-md">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -391,7 +348,7 @@ const Applicants = () => {
             </div>
           )}
         </div>
-      </Card>
+      </div>
 
       {/* Trusted Companies Footer */}
       <div className="mt-8 text-center">

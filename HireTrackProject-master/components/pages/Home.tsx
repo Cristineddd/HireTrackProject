@@ -148,7 +148,7 @@ const Home: React.FC = () => {
                   Post a Job
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
               
               <Button 

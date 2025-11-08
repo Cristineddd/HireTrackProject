@@ -1,18 +1,14 @@
 "use client";
 
 import React from 'react';
+import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-
-const Card: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (
-  <div className="bg-white rounded-lg shadow-sm">{children}</div>
-);
 import {
   BarChart3,
   TrendingUp,
   Users,
-  Calendar,
-  DollarSign,
   Clock,
+  DollarSign,
   LineChart,
   PieChart
 } from "lucide-react";

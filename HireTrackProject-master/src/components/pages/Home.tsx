@@ -3,7 +3,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { 
   ArrowRight, 
   Users, 
@@ -86,33 +85,13 @@ const Home: React.FC = () => {
       <header className="relative overflow-hidden bg-linear-to-br from-indigo-600 via-indigo-700 to-sky-600 text-white">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-size-[60px_60px]">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="absolute top-1/4 -left-10 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="absolute bottom-1/4 -right-10 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-1/4 -left-10 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 -right-10 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-32 lg:py-40">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center"
-          >
+          <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
 
 
@@ -123,22 +102,12 @@ const Home: React.FC = () => {
               </span>
             </h1>
             
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mt-8 text-xl lg:text-2xl text-indigo-100 max-w-3xl mx-auto leading-relaxed font-light"
-            >
+            <p className="mt-8 text-xl lg:text-2xl text-indigo-100 max-w-3xl mx-auto leading-relaxed font-light">
               Complete applicant tracking system for employers and job seekers. Streamline recruitment from job posting to candidate selection with real-time tracking and AI-powered insights.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center"
-            >
+            <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Button 
                 size="lg" 
                 className="relative group bg-white! text-indigo-700! hover:bg-indigo-50! shadow-2xl hover:shadow-3xl transition-all duration-300 text-lg font-bold px-10 py-7 rounded-2xl overflow-hidden"
@@ -148,7 +117,7 @@ const Home: React.FC = () => {
                   Post a Job
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
               
               <Button 
@@ -163,40 +132,26 @@ const Home: React.FC = () => {
                 </span>
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
-            </motion.div>
+            </div>
 
             {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-2xl mx-auto"
-            >
+            <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-2xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-2xl lg:text-3xl font-bold text-white">{stat.number}</div>
                   <div className="text-sm text-indigo-200 mt-1">{stat.label}</div>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-3 bg-white/50 rounded-full mt-2"
-            />
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2" />
           </div>
-        </motion.div>
+        </div>
       </header>
 
       {/* Enhanced Features Section */}
@@ -206,12 +161,7 @@ const Home: React.FC = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-100/50 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
         
         <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
+          <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 rounded-full px-4 py-2 text-sm font-medium mb-6">
               <Star className="w-4 h-4 fill-current" />
               Everything you need in one platform
@@ -225,18 +175,11 @@ const Home: React.FC = () => {
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Powerful tools and features designed to streamline your recruitment process and help you find the perfect candidates faster.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className={`group relative p-8 border border-slate-200/60 rounded-3xl hover:shadow-2xl hover:shadow-slate-200/50 backdrop-blur-sm bg-white/70 hover:bg-white transition-all duration-500 overflow-hidden ${feature.bgColor}`}
-              >
+              <div key={index} className={`group relative p-8 border border-slate-200/60 rounded-3xl hover:shadow-2xl hover:shadow-slate-200/50 backdrop-blur-sm bg-white/70 hover:bg-white transition-all duration-500 overflow-hidden ${feature.bgColor}`}>
                 {/* Gradient Border Effect */}
                 <div className={`absolute inset-0 bg-linear-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl`} />
                 
@@ -256,7 +199,7 @@ const Home: React.FC = () => {
                 <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
                   <ArrowRight className="w-6 h-6 text-slate-400" />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -266,37 +209,13 @@ const Home: React.FC = () => {
       <section className="relative overflow-hidden bg-linear-to-r from-indigo-600 via-indigo-700 to-sky-600 py-24 lg:py-32">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-size-[60px_60px]">
-          <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3]
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-0 right-0 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              opacity: [0.4, 0.2, 0.4]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"
-          />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl" />
         </div>
         
         <div className="relative max-w-5xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+          <div
+            className=""
           >
             <h3 className="text-5xl lg:text-6xl font-bold text-white mb-8">
               Ready to Transform
@@ -337,12 +256,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Trust Indicators */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 text-indigo-200"
-            >
+            <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 text-indigo-200">
               <div className="flex items-center gap-4">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star key={star} className="w-5 h-5 fill-current text-amber-400" />
@@ -353,9 +267,9 @@ const Home: React.FC = () => {
                 <CheckCircle className="w-5 h-5 text-emerald-400" />
                 <span className="text-sm font-medium">99.9% Uptime</span>
               </div>
-            </motion.div>
+            </div>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -370,32 +284,22 @@ const Home: React.FC = () => {
         <div className="relative max-w-7xl mx-auto px-6">
           {/* Main Footer Content */}
           <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-8"
-            >
+            <div className="mb-8">
       
               <h4 className="text-2xl font-bold text-white mb-3">HireTrack</h4>
               <p className="text-slate-400 max-w-md mx-auto text-sm leading-relaxed">
                 End-to-end job hiring portal with integrated applicant tracking.
                 Connecting talent with opportunity worldwide.
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center pt-8 border-t border-white/10"
-          >
+          <div className="text-center pt-8 border-t border-white/10">
             <p className="text-sm text-slate-400">
               © 2025 HireTrack. All rights reserved.
             </p>
-          </motion.div>
+          </div>
         </div>
       </footer>
     </div>

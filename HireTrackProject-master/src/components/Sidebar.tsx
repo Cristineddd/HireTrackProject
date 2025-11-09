@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+// framer-motion removed per user request
 import { 
   Home,
   BarChart2,
@@ -22,19 +22,9 @@ const Sidebar = () => {
   if (pathname === "/") return null;
 
   return (
-    <motion.aside 
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-y-0 left-0 z-50 flex flex-col w-[280px] py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:w-80
-      mobile-sidebar"
-    >
-      <motion.div 
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex items-center gap-4 mb-8"
-      >
+    <aside className="fixed inset-y-0 left-0 z-50 flex flex-col w-[280px] py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:w-80
+      mobile-sidebar">
+      <div className="flex items-center gap-4 mb-8">
      
         <div>
           <h2 className="text-xl font-bold text-indigo-700">
@@ -44,29 +34,19 @@ const Sidebar = () => {
             Hiring made simple & smart
           </p>
         </div>
-      </motion.div>
+  </div>
 
       {/* Enhanced CTAs */}
-      <motion.div 
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="flex flex-col gap-3 mb-8"
-      >
+      <div className="flex flex-col gap-3 mb-8">
         <Link 
           href="/open-positions" 
           className="group relative flex items-center gap-2 rounded-xl bg-indigo-600 text-white px-4 py-3 text-sm font-medium shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-200 transition-all duration-300"
         >
           <PlusCircle className="w-5 h-5" />
           <span>Post a Job</span>
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="absolute right-4 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center"
-          >
+          <div className="absolute right-4 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center">
             <Building2 className="w-3 h-3" />
-          </motion.div>
+          </div>
         </Link>
         <Link 
           href="/applicants" 
@@ -75,14 +55,9 @@ const Sidebar = () => {
           <Search className="w-5 h-5" />
           <span>Find Jobs</span>
         </Link>
-      </motion.div>
+      </div>
 
-      <motion.nav 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-        className="flex-1 overflow-y-auto"
-      >
+      <nav className="flex-1 overflow-y-auto">
         <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-4">
           Main Menu
         </div>
@@ -96,11 +71,7 @@ const Sidebar = () => {
           ].map((item) => {
             const isActive = pathname === item.href;
             return (
-              <motion.li
-                key={item.href}
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <li key={item.href}>
                 <Link
                   href={item.href}
                   className={`relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300
@@ -114,24 +85,16 @@ const Sidebar = () => {
                   </span>
                   <span>{item.label}</span>
                   {isActive && (
-                    <motion.div
-                      layoutId="active-nav-item"
-                      className="absolute right-3 w-1.5 h-1.5 rounded-full bg-indigo-600"
-                    />
+                    <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-indigo-600" />
                   )}
                 </Link>
-              </motion.li>
+              </li>
             );
           })}
         </ul>
-      </motion.nav>
+      </nav>
 
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
-        className="mt-6 pt-6 border-t border-slate-200"
-      >
+      <div className="mt-6 pt-6 border-t border-slate-200">
         <div className="rounded-2xl bg-slate-50 p-4">
           <div className="mb-3">
             <div className="text-sm font-medium text-slate-900">
@@ -147,8 +110,8 @@ const Sidebar = () => {
             ))}
           </div>
         </div>
-      </motion.div>
-    </motion.aside>
+      </div>
+    </aside>
   );
 };
 

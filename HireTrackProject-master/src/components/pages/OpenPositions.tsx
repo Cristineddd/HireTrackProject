@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from "framer-motion";
+// framer-motion removed per user request
 import { 
   Search,
   Filter,
@@ -130,12 +130,7 @@ const OpenPositions: React.FC = () => {
       {/* Positions Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {positions.map((position, index) => (
-          <motion.div
-            key={position.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
+          <div key={position.id}>
             <Card>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
@@ -193,7 +188,7 @@ const OpenPositions: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

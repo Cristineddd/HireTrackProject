@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from "framer-motion";
+// framer-motion removed per request
 import { 
   Calendar as CalendarIcon,
   Clock,
@@ -150,12 +150,7 @@ const Scheduling: React.FC = () => {
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-slate-900">Upcoming Interviews</h2>
           {interviews.map((interview, index) => (
-            <motion.div
-              key={interview.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
+            <div key={interview.id}>
               <Card>
                 <div className="p-4">
                   <div className="flex justify-between items-start mb-3">
@@ -200,7 +195,7 @@ const Scheduling: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

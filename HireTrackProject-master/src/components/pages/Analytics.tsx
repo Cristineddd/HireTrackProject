@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { motion } from "framer-motion";
+// framer-motion removed per user request
 import {
   BarChart3,
   TrendingUp,
@@ -75,12 +75,7 @@ const Analytics = () => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, index) => (
-          <motion.div
-            key={stat.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
+          <div key={stat.title}>
             <Card>
               <div className="p-6 hover:shadow-lg transition-all duration-200">
                 <div className="flex justify-between items-start mb-4">
@@ -100,19 +95,14 @@ const Analytics = () => {
                 <p className="text-2xl font-bold text-slate-900 mt-1">{stat.value}</p>
               </div>
             </Card>
-          </motion.div>
+          </div>
         ))}
       </div>
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {chartData.map((chart, index) => (
-          <motion.div
-            key={chart.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 + index * 0.1 }}
-          >
+          <div key={chart.title}>
             <Card>
               <div className="p-6 hover:shadow-lg transition-all duration-200">
                 <div className="flex items-center gap-2 mb-4">
@@ -126,7 +116,7 @@ const Analytics = () => {
                 </div>
               </div>
             </Card>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

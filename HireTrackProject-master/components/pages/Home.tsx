@@ -270,7 +270,7 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 

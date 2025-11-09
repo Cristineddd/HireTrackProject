@@ -223,6 +223,13 @@ export interface CreateInterviewData {
 }
 
 // ==================== API RESPONSES ====================
+export interface ApiResponse<T = any> {
+  data: T;
+  status: number;
+  message?: string;
+  error?: string;
+}
+
 export interface PaginationParams {
   page?: number;
   limit?: number;

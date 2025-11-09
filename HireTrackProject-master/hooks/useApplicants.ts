@@ -169,14 +169,15 @@ export const useApplicants = (options: UseApplicantsOptions = {}) => {
       if (activeFilters?.location) params.location = activeFilters.location;
       if (activeFilters?.search) params.search = activeFilters.search;
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'}${API_ENDPOINTS.APPLICANTS.EXPORT}?${new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)])))}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-          },
-        }
-      );
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+      const queryString = new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)])).toString();
+      const url = `${baseUrl}${API_ENDPOINTS.APPLICANTS.EXPORT}?${queryString}`;
+      
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        },
+      });
 
       if (!response.ok) throw new Error('Export failed');
       

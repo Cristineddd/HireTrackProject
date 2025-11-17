@@ -63,7 +63,7 @@ const Sidebar = () => {
         </div>
         <ul className="space-y-2 px-2">
           {[
-            { href: "/analytics", icon: <Home className="w-5 h-5" />, label: "Home" },
+            { href: "/", icon: <Home className="w-5 h-5" />, label: "Home" },
             { href: "/analytics", icon: <BarChart2 className="w-5 h-5" />, label: "Analytics" },
             { href: "/applicants", icon: <Users className="w-5 h-5" />, label: "Applicants" },
             { href: "/open-positions", icon: <Briefcase className="w-5 h-5" />, label: "Open Positions" },
@@ -71,7 +71,7 @@ const Sidebar = () => {
           ].map((item) => {
             const isActive = pathname === item.href;
             return (
-              <li key={item.href}>
+              <li key={item.label}>
                 <Link
                   href={item.href}
                   className={`relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300

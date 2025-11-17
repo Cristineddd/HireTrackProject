@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-// framer-motion removed per request
+// framer-motion removed per user request
 import { 
   Calendar as CalendarIcon,
   Clock,

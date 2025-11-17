@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from "framer-motion";
 import { 
   Search,
   Filter,
@@ -309,11 +308,8 @@ const Applicants = () => {
                 const statusConfig = getStatusConfig(applicant.status);
                 
                 return (
-                  <motion.tr 
+                  <tr 
                     key={applicant.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
                     className="hover:bg-slate-50 transition-colors group bg-white"
                   >
                     <td className="py-4 px-6">
@@ -375,7 +371,7 @@ const Applicants = () => {
                         </button>
                       </div>
                     </td>
-                  </motion.tr>
+                  </tr>
                 );
               })}
             </tbody>

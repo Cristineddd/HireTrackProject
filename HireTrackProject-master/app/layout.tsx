@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/src/components/Sidebar";
+import Sidebar from "@/components/Sidebar";
 
 const inter = Inter({
   variable: "--font-inter",

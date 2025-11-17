@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+// framer-motion removed per user request
 import { 
   ArrowRight, 
   Users, 

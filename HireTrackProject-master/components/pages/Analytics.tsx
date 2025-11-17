@@ -7,9 +7,8 @@ import {
   BarChart3,
   TrendingUp,
   Users,
-  Calendar,
-  DollarSign,
   Clock,
+  DollarSign,
   LineChart,
   PieChart
 } from "lucide-react";

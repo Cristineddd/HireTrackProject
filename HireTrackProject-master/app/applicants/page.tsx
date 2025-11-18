@@ -398,71 +398,7 @@ const Applicants = () => {
         </div>
       </Card>
 
-      {/* Trusted Companies Footer */}
-      <div className="mt-8 sm:mt-12 mb-6 sm:mb-8">
-        <div className="text-center mb-6 sm:mb-8">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900">1,000+ Companies Trust Us</h3>
-          <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Join them in streamlining your hiring process</p>
-        </div>
-        
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {/* Company 1 */}
-            <div className="flex flex-col items-center">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-3 sm:p-4">
-                <img 
-                  src="/company1.svg" 
-                  alt="Company 1" 
-                  className="w-full h-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-              <p className="mt-2 sm:mt-3 text-sm font-medium text-gray-700">Company 1</p>
-            </div>
 
-            {/* Company 2 */}
-            <div className="flex flex-col items-center">
-              <div className="w-24 h-24 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-4">
-                <img 
-                  src="/company2.svg" 
-                  alt="Company 2" 
-                  className="w-full h-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-              <p className="mt-3 text-sm font-medium text-gray-700">Company 2</p>
-            </div>
-
-            {/* Company 3 */}
-            <div className="flex flex-col items-center">
-              <div className="w-24 h-24 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-4">
-                <img 
-                  src="/company3.svg" 
-                  alt="Company 3" 
-                  className="w-full h-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-              <p className="mt-3 text-sm font-medium text-gray-700">Company 3</p>
-            </div>
-
-            {/* Company 4 */}
-            <div className="flex flex-col items-center">
-              <div className="w-24 h-24 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-4">
-                <img 
-                  src="/company4.svg" 
-                  alt="Company 4" 
-                  className="w-full h-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-              <p className="mt-3 text-sm font-medium text-gray-700">Company 4</p>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Button variant="outline" className="text-sm">
-              View All Partners
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

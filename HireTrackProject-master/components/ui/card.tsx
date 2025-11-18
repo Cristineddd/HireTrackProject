@@ -1,7 +1,7 @@
 import React from "react";
 
-export const Card: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (
-  <div className="bg-white shadow-sm rounded-md">{children}</div>
+export const Card: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ children, className = "" }) => (
+  <div className={`bg-white shadow-sm rounded-md ${className}`}>{children}</div>
 );
 
 export const CardHeader: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (

@@ -3,17 +3,19 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { 
-  ArrowRight, 
-  Users, 
-  FileText, 
-  Target, 
-  MessageSquare, 
-  BarChart3, 
+// framer-motion removed per user request
+import {
+  ArrowRight,
+  Users,
+  FileText,
+  Target,
+  MessageSquare,
+  BarChart3,
   Smartphone,
   CheckCircle,
   Star,
-  TrendingUp
+  TrendingUp,
+  Briefcase
 } from "lucide-react";
 
 const Home: React.FC = () => {
@@ -24,7 +26,7 @@ const Home: React.FC = () => {
   };
 
   const handleFindJobs = () => {
-    router.push('/applicants');
+    router.push('/jobs');
   };
 
   const features = [
@@ -120,15 +122,15 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-linear-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
               
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="relative group border-2 border-white! text-white! bg-white/10 hover:bg-white/20 backdrop-blur-sm text-lg font-bold px-10 py-7 rounded-2xl overflow-hidden transition-all duration-300"
                 onClick={handleFindJobs}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Find Jobs
-                  <Users className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <Briefcase className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
@@ -153,6 +155,160 @@ const Home: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* Post a Job Section */}
+      <section className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32 bg-linear-to-br from-indigo-50 to-sky-50">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+        <div className="relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 rounded-full px-4 py-2 text-sm font-medium mb-6">
+              <FileText className="w-4 h-4 fill-current" />
+              For Employers
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+              Post a Job
+              <span className="block text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-sky-600">
+                Effortlessly
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Reach thousands of qualified candidates with our intuitive job posting platform. Get started in minutes.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <FileText className="w-8 h-8 text-indigo-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Create Your Job</h3>
+              <p className="text-slate-600">Fill in job details, requirements, and company information in our easy-to-use form.</p>
+            </div>
+            <div className="text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Target className="w-8 h-8 text-sky-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Target Candidates</h3>
+              <p className="text-slate-600">Use filters and keywords to attract the right talent for your open positions.</p>
+            </div>
+            <div className="text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <TrendingUp className="w-8 h-8 text-emerald-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Track Results</h3>
+              <p className="text-slate-600">Monitor applications, views, and engagement with real-time analytics.</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Button
+              size="lg"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-12 py-6 rounded-2xl text-lg"
+              onClick={handlePostJob}
+            >
+              Post Your First Job
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Find Jobs Section */}
+      <section className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32 bg-linear-to-br from-sky-50 to-indigo-50">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+
+        <div className="relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-sky-100 text-sky-700 rounded-full px-4 py-2 text-sm font-medium mb-6">
+              <Users className="w-4 h-4 fill-current" />
+              For Job Seekers
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+              Find Jobs
+              <span className="block text-transparent bg-clip-text bg-linear-to-r from-sky-600 to-indigo-600">
+                That Fit You
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Discover opportunities that match your skills and career goals. Apply to jobs from top companies worldwide.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* Sample Job Cards */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-slate-200">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-indigo-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900">Senior Developer</h3>
+                  <p className="text-slate-600 text-sm">TechCorp Inc.</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">React</span>
+                <span className="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">TypeScript</span>
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">Remote</span>
+              </div>
+              <p className="text-slate-600 text-sm mb-4">San Francisco, CA • $120k-$150k</p>
+              <Button size="sm" variant="outline" className="w-full">View Details</Button>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-slate-200">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-sky-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900">Data Analyst</h3>
+                  <p className="text-slate-600 text-sm">DataFlow Solutions</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">Python</span>
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">SQL</span>
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Hybrid</span>
+              </div>
+              <p className="text-slate-600 text-sm mb-4">New York, NY • $90k-$110k</p>
+              <Button size="sm" variant="outline" className="w-full">View Details</Button>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-slate-200">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                  <MessageSquare className="w-6 h-6 text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900">UX Designer</h3>
+                  <p className="text-slate-600 text-sm">Creative Studios</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">Figma</span>
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Adobe XD</span>
+                <span className="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">Remote</span>
+              </div>
+              <p className="text-slate-600 text-sm mb-4">Austin, TX • $80k-$100k</p>
+              <Button size="sm" variant="outline" className="w-full">View Details</Button>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Button
+              size="lg"
+              className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-12 py-6 rounded-2xl text-lg"
+              onClick={handleFindJobs}
+            >
+              Browse All Jobs
+              <Briefcase className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Enhanced Features Section */}
       <section className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32">
@@ -241,15 +397,15 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-linear-to-r from-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
               
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="relative group border-2 border-white! text-white! bg-white/10 hover:bg-white/20 backdrop-blur-sm text-lg font-bold px-12 py-7 rounded-2xl overflow-hidden transition-all duration-300"
                 onClick={handleFindJobs}
               >
                 <span className="relative z-10 flex items-center gap-3">
                   Browse Open Positions
-                  <Users className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <Briefcase className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>

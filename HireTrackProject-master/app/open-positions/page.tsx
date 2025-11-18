@@ -1,4 +1,4 @@
-import OpenPositions from "@/src/components/pages/OpenPositions";
+import OpenPositions from "@/components/pages/OpenPositions";
 
 export default function OpenPositionsPage() {
   return <OpenPositions />;

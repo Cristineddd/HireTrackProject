@@ -1,16 +1,3 @@
-/**
- * Applicants Hooks (Refined)
- * Production-ready custom hooks with caching, deduplication, retry logic, and React Query patterns
- * 
- * Features:
- * - Request deduplication & caching with configurable stale time
- * - Exponential backoff retry strategy
- * - Optimistic updates for better UX
- * - Batch operations support
- * - Type-safe error handling
- * - Invalidation patterns for related queries
- */
-
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { requestService } from '@/service/RequestService';
 import { API_ENDPOINTS, PAGINATION } from '@/constants';
@@ -268,9 +255,6 @@ export const useApplicants = (options: UseApplicantsOptions = {}): UseApplicants
     }
   }, [applicants, cacheConfig, enableOptimisticUpdates]);
 
-  /**
-   * Delete multiple applicants in batch
-   */
   const deleteApplicants = useCallback(async (ids: (string | number)[]) => {
     setIsLoading(true);
     setError(null);

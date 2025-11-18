@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { requestService } from '@/service/RequestService';
-import { API_ENDPOINTS, PAGINATION } from '@/constants';
+import { API_ENDPOINTS, PAGINATION } from '@/constants/index';
 import {
   queryCacheManager,
   generateCacheKey,
@@ -14,9 +14,11 @@ import type {
   ApplicantStatus,
   PaginationParams,
   ApiResponse,
-} from '@/interface';
+} from '@/interface/index';
 
 interface UseApplicantsOptions extends PaginationParams {
+  page?: number;
+  limit?: number;
   filters?: ApplicantFilters;
   autoFetch?: boolean;
   cacheConfig?: CacheConfig;
@@ -118,7 +120,7 @@ export const useApplicants = (options: UseApplicantsOptions = {}): UseApplicants
         ),
         {
           maxRetries: cacheConfig.retryCount,
-          shouldRetry: (error) => !error.status || error.status >= 500,
+          shouldRetry: (error: any) => !error.status || error.status >= 500,
         }
       );
 

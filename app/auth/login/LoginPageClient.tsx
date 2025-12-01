@@ -124,11 +124,11 @@ const LoginPage = () => {
         {/* Top Branding */}
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
+            <img 
+              src="/HT.svg" 
+              alt="HireTrack Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <div>
               <h1 className="text-3xl font-black text-white">HireTrack</h1>
               <p className="text-white/70 text-sm">Your Recruitment Success Partner</p>
@@ -223,12 +223,12 @@ const LoginPage = () => {
 
           {/* Top Branding - Mobile */}
           <div className="lg:hidden mb-8 text-center">
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-[#2B75EE] rounded-xl flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <img 
+                src="/HT.svg" 
+                alt="HireTrack Logo" 
+                className="w-8 h-8 object-contain"
+              />
               <div className="text-left">
                 <h1 className="text-2xl font-black text-[#1D2530]">HireTrack</h1>
                 <p className="text-[#6F7C90] text-xs">Your Recruitment Success Partner</p>

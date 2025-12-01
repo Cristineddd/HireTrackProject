@@ -62,8 +62,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         >
           <X className="w-6 h-6 text-slate-600" />
         </button>
-      <div className="flex items-center gap-4 mb-6">
-     
+      <div className="flex items-center gap-3 mb-6">
+        <img 
+          src="/HT.svg" 
+          alt="HireTrack Logo" 
+          className="w-10 h-10 object-contain"
+        />
         <div>
           <h2 className="text-xl font-bold text-indigo-700">
             HireTrack

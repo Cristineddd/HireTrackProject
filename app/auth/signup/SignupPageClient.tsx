@@ -100,7 +100,7 @@ const SignUpPage = () => {
 
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-[#2B75EE] via-[#2B75EE] to-[#1F5DD3] p-12 flex-col justify-between relative overflow-hidden">
         {/* Animated decorative circles */}
@@ -201,8 +201,8 @@ const SignUpPage = () => {
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-[#F9FAFB]">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-[#F9FAFB] min-h-screen lg:min-h-0 lg:w-1/2">
+        <div className="w-full max-w-md mx-auto">
           {/* Back Button */}
           <Link
             href="/"

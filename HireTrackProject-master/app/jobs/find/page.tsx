@@ -156,27 +156,27 @@ const FindJobsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-700 border-t-emerald-500 rounded-full animate-spin" />
+      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-50/30 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-50/30">
       {/* Header */}
-      <header className="bg-slate-800/50 border-b border-slate-700 sticky top-0 z-50">
+      <header className="bg-white border-b-2 border-blue-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-white">Find Jobs</h1>
-              <p className="text-sm text-slate-400">
+              <h1 className="text-2xl font-black text-gray-900">Find Jobs</h1>
+              <p className="text-sm text-gray-600 font-medium">
                 Hello, {user?.fullName || "Applicant"}
               </p>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold transition-all shadow-md hover:shadow-lg"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -191,13 +191,13 @@ const FindJobsPage = () => {
           {/* Search */}
           <div className="lg:col-span-2">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-500" />
               <input
                 type="text"
                 placeholder="Job title or company..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-blue-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm hover:shadow-md"
               />
             </div>
           </div>
@@ -205,13 +205,13 @@ const FindJobsPage = () => {
           {/* Location */}
           <div>
             <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-500" />
               <input
                 type="text"
                 placeholder="Location or Remote"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-blue-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm hover:shadow-md"
               />
             </div>
           </div>
@@ -221,7 +221,7 @@ const FindJobsPage = () => {
             <select
               value={jobType}
               onChange={(e) => setJobType(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-white border-2 border-blue-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm hover:shadow-md font-medium"
             >
               <option value="all">All Types</option>
               <option value="Full-time">Full-time</option>
@@ -234,10 +234,10 @@ const FindJobsPage = () => {
 
         {/* Results Count */}
         <div className="mb-6 flex items-center justify-between">
-          <p className="text-slate-400">
-            Found <span className="text-white font-semibold">{filteredJobs.length}</span> jobs
+          <p className="text-gray-700 font-medium">
+            Found <span className="text-blue-600 font-bold">{filteredJobs.length}</span> jobs
           </p>
-          <button className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-slate-300 transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 rounded-lg text-gray-900 font-semibold transition-all shadow-sm hover:shadow-md hover:scale-105">
             <Filter className="w-4 h-4" />
             More Filters
           </button>
@@ -249,37 +249,37 @@ const FindJobsPage = () => {
             filteredJobs.map((job) => (
               <Card
                 key={job.id}
-                className="border-0 bg-slate-800 hover:bg-slate-700/50 transition-all duration-300 overflow-hidden"
+                className="border-2 border-blue-200 bg-white hover:border-blue-400 hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     {/* Job Info */}
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
                         {job.title}
                       </h3>
-                      <p className="text-slate-400 mb-4">{job.company}</p>
+                      <p className="text-gray-600 font-medium mb-4">{job.company}</p>
 
                       <div className="flex flex-wrap gap-4 mb-4">
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <MapPin className="w-4 h-4" />
-                          <span className="text-sm">{job.location}</span>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <MapPin className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium">{job.location}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <DollarSign className="w-4 h-4" />
-                          <span className="text-sm">{job.salary}</span>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <DollarSign className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium">{job.salary}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <Briefcase className="w-4 h-4" />
-                          <span className="text-sm">{job.type}</span>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Briefcase className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium">{job.type}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <Clock className="w-4 h-4" />
-                          <span className="text-sm">{job.postedDate}</span>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Clock className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium">{job.postedDate}</span>
                         </div>
                       </div>
 
-                      <p className="text-slate-500 text-sm line-clamp-2">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {job.description}
                       </p>
                     </div>
@@ -288,10 +288,10 @@ const FindJobsPage = () => {
                     <div className="flex flex-col gap-2">
                       <button
                         onClick={() => toggleSaveJob(job.id)}
-                        className={`p-3 rounded-lg transition-all ${
+                        className={`p-3 rounded-lg transition-all hover:scale-105 ${
                           savedJobs.includes(job.id)
-                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
-                            : "bg-slate-700 text-slate-400 hover:bg-slate-600 border border-slate-600"
+                            ? "bg-blue-100 text-blue-600 border-2 border-blue-500 shadow-md"
+                            : "bg-white text-gray-600 hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400 shadow-sm"
                         }`}
                         title="Save job"
                       >
@@ -299,7 +299,7 @@ const FindJobsPage = () => {
                       </button>
                       <Link
                         href={`/jobs/${job.id}`}
-                        className="p-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-all flex items-center justify-center"
+                        className="p-3 rounded-lg bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white transition-all flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105"
                         title="Apply now"
                       >
                         <Send className="w-5 h-5" />
@@ -310,13 +310,13 @@ const FindJobsPage = () => {
               </Card>
             ))
           ) : (
-            <Card className="border-0 bg-slate-800 p-12">
+            <Card className="border-2 border-blue-200 bg-white p-12">
               <div className="text-center">
-                <Briefcase className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-slate-400 mb-2">
+                <Briefcase className="w-12 h-12 text-blue-300 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   No jobs found
                 </h3>
-                <p className="text-slate-500">
+                <p className="text-gray-600">
                   Try adjusting your search or filters
                 </p>
               </div>

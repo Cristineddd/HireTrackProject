@@ -4,136 +4,91 @@ import React, { useState } from 'react';
 import { 
   Search,
   Filter,
-  User,
-  Mail,
   Briefcase,
+  MapPin,
   Calendar,
   ChevronDown,
   Eye,
-  Plus,
   Clock,
   CheckCircle,
   AlertCircle,
   Download,
-  MapPin,
-  MoreHorizontal,
-  Menu
+  DollarSign,
+  MoreHorizontal
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
-interface Applicant {
+interface Application {
   id: number;
-  initials: string;
-  name: string;
-  position: string;
-  applicationDate: string;
-  status: 'New' | 'Screening' | 'Interview' | 'Hired';
-  email: string;
+  jobTitle: string;
+  company: string;
+  appliedDate: string;
+  status: 'Applied' | 'Reviewing' | 'Interview' | 'Rejected' | 'Accepted';
+  salary?: string;
   location?: string;
-  experience?: string;
-  department?: string;
 }
 
-const Applicants = () => {
+const MyApplications = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-
-  const getStatusStyle = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'new':
-        return 'bg-blue-100 text-blue-700';
-      case 'screening':
-        return 'bg-amber-100 text-amber-700';
-      case 'interview':
-        return 'bg-purple-100 text-purple-700';
-      case 'hired':
-        return 'bg-emerald-100 text-emerald-700';
-      default:
-        return 'bg-slate-100 text-slate-700';
-    }
-  };
-
-  const applicants: Applicant[] = [
+  
+  const mockApplications: Application[] = [
     {
       id: 1,
-      initials: 'SJ',
-      name: 'Sarah Johnson',
-      position: 'Senior Frontend Developer',
-      applicationDate: '2024-01-15',
-      status: 'New',
-      email: 'sarah.johnson@example.com',
-      department: 'Engineering',
-      location: 'New York, NY',
-      experience: '8 years'
+      jobTitle: 'Senior Frontend Developer',
+      company: 'Tech Corp',
+      appliedDate: '2024-01-15',
+      status: 'Reviewing',
+      salary: '$120k - $150k',
+      location: 'New York, NY'
     },
     {
       id: 2,
-      initials: 'MC',
-      name: 'Michael Chen',
-      position: 'UX Designer',
-      applicationDate: '2024-01-14',
-      status: 'Screening',
-      email: 'michael.chen@example.com',
-      department: 'Design',
-      location: 'San Francisco, CA',
-      experience: '5 years'
+      jobTitle: 'UX/UI Designer',
+      company: 'Design Studio',
+      appliedDate: '2024-01-14',
+      status: 'Interview',
+      salary: '$90k - $120k',
+      location: 'San Francisco, CA'
     },
     {
       id: 3,
-      initials: 'ER',
-      name: 'Emily Rodriguez',
-      position: 'Product Manager',
-      applicationDate: '2024-01-13',
-      status: 'Interview',
-      email: 'emily.rodriguez@example.com',
-      department: 'Product',
-      location: 'Austin, TX',
-      experience: '6 years'
+      jobTitle: 'Product Manager',
+      company: 'Startup Inc',
+      appliedDate: '2024-01-13',
+      status: 'Applied',
+      salary: '$110k - $140k',
+      location: 'Remote'
     },
     {
       id: 4,
-      initials: 'RM',
-      name: 'Robert Manger',
-      position: 'Backend Developer',
-      applicationDate: '2024-01-12',
-      status: 'Screening',
-      email: 'robert.manger@example.com',
-      department: 'Engineering',
-      location: 'Remote',
-      experience: '4 years'
+      jobTitle: 'Backend Engineer',
+      company: 'Cloud Solutions',
+      appliedDate: '2024-01-12',
+      status: 'Accepted',
+      salary: '$130k - $160k',
+      location: 'Austin, TX'
     },
     {
       id: 5,
-      initials: 'AL',
-      name: 'Amanda Lee',
-      position: 'Data Analyst',
-      applicationDate: '2024-01-11',
-      status: 'Screening',
-      email: 'amanda.lee@example.com',
-      department: 'Analytics',
-      location: 'Chicago, IL',
-      experience: '3 years'
+      jobTitle: 'Data Scientist',
+      company: 'AI Labs',
+      appliedDate: '2024-01-11',
+      status: 'Rejected',
+      salary: '$100k - $135k',
+      location: 'Boston, MA'
     }
   ];
 
-  const filteredApplicants = applicants.filter(applicant => {
-    const matchesSearch = applicant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         applicant.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         applicant.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || applicant.status.toLowerCase() === statusFilter.toLowerCase();
-    return matchesSearch && matchesStatus;
-  });
+  const [applications, setApplications] = useState<Application[]>(mockApplications);
 
   const getStatusConfig = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'new':
+      case 'applied':
         return {
           color: 'bg-blue-50 text-blue-700 border-blue-200',
           icon: <AlertCircle className="w-3 h-3" />
         };
-      case 'screening':
+      case 'reviewing':
         return {
           color: 'bg-amber-50 text-amber-700 border-amber-200',
           icon: <Clock className="w-3 h-3" />
@@ -143,10 +98,15 @@ const Applicants = () => {
           color: 'bg-purple-50 text-purple-700 border-purple-200',
           icon: <Calendar className="w-3 h-3" />
         };
-      case 'hired':
+      case 'accepted':
         return {
           color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
           icon: <CheckCircle className="w-3 h-3" />
+        };
+      case 'rejected':
+        return {
+          color: 'bg-red-50 text-red-700 border-red-200',
+          icon: <AlertCircle className="w-3 h-3" />
         };
       default:
         return {
@@ -156,97 +116,43 @@ const Applicants = () => {
     }
   };
 
-  // Custom Components
-  const Card = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
-    <div className={`bg-white rounded-xl border border-slate-200 shadow-sm ${className}`} {...props}>
-      {children}
-    </div>
-  );
-
-  const Badge = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${className}`} {...props}>
-      {children}
-    </span>
-  );
-
-  const Button = ({ 
-    children, 
-    className = "", 
-    variant = "default",
-    size = "default",
-    ...props 
-  }: { 
-    children: React.ReactNode; 
-    className?: string; 
-    variant?: "default" | "outline" | "ghost"; 
-    size?: "default" | "sm";
-    [key: string]: any 
-  }) => {
-    const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
-    
-    const variantStyles = {
-      default: "bg-indigo-600 text-white hover:bg-indigo-700",
-      outline: "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50",
-      ghost: "text-slate-700 hover:bg-slate-100"
-    };
-    
-    const sizeStyles = {
-      default: "px-4 py-3 text-sm",
-      sm: "px-3 py-2 text-xs"
-    };
-    
-    return (
-      <button className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`} {...props}>
-        {children}
-      </button>
-    );
-  };
+  const filteredApplications = applications.filter(app => {
+    const matchesSearch = app.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         app.location?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || app.status.toLowerCase() === statusFilter.toLowerCase();
+    return matchesSearch && matchesStatus;
+  });
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-      {/* Mobile Menu Button - Only visible on small screens */}
-      <div className="lg:hidden mb-4">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="flex items-center gap-2"
-          onClick={() => document.querySelector('.mobile-sidebar')?.classList.toggle('translate-x-0')}
-        >
-          <Menu className="w-4 h-4" />
-          Menu
-        </Button>
-      </div>
-
-      {/* Header */}
+    <div className="min-h-screen bg-slate-50 w-full">
+      <div className="w-full px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+        {/* Header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Applicants</h1>
-            <p className="text-sm sm:text-base text-slate-600 mt-1 sm:mt-2">Manage and track job applications</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">My Applications</h1>
+            <p className="text-sm sm:text-base text-slate-600 mt-1 sm:mt-2">Track all your job applications in one place</p>
           </div>
           
           <div className="flex items-center gap-2 sm:gap-3">
-            <Button variant="outline" className="flex items-center gap-2 text-sm">
+            <button className="flex items-center gap-2 px-4 py-2 border-2 border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium">
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">Export</span>
-            </Button>
-            <Button className="flex items-center gap-2 text-sm">
-              <Plus className="w-4 h-4" />
-              <span className="hidden sm:inline">Add Applicant</span>
-            </Button>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Search and Filter Bar */}
-      <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-3 flex-1 sm:flex-row sm:items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="Search applicants..."
+                placeholder="Search by job title, company..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
@@ -260,40 +166,44 @@ const Applicants = () => {
                 className="px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white"
               >
                 <option value="all">All Status</option>
-                <option value="new">New</option>
-                <option value="screening">Screening</option>
+                <option value="applied">Applied</option>
+                <option value="reviewing">Reviewing</option>
                 <option value="interview">Interview</option>
-                <option value="hired">Hired</option>
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
               </select>
               
-              <Button variant="outline" className="flex items-center gap-2 whitespace-nowrap">
+              <button className="flex items-center gap-2 px-3 py-2.5 border border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors whitespace-nowrap">
                 <Filter className="w-4 h-4" />
                 More Filters
                 <ChevronDown className="w-4 h-4" />
-              </Button>
+              </button>
             </div>
           </div>
           
           <div className="text-sm text-slate-600">
-            Showing {filteredApplicants.length} of {applicants.length} applicants
+            Showing {filteredApplications.length} of {applications.length} applications
           </div>
         </div>
-      </Card>
+      </div>
 
-      {/* Applicants Table */}
-      <Card className="overflow-hidden">
+      {/* Applications Table */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto -mx-4 sm:mx-0">
           <table className="min-w-full divide-y divide-slate-200">
             <thead>
               <tr className="bg-slate-50">
                 <th className="py-3 px-4 sm:px-6 text-left text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                  Candidate
+                  Job
                 </th>
                 <th className="hidden sm:table-cell py-3 px-4 sm:px-6 text-left text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                  Applied For
+                  Location
                 </th>
                 <th className="hidden lg:table-cell py-3 px-4 sm:px-6 text-left text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                  Application Date
+                  Salary
+                </th>
+                <th className="hidden md:table-cell py-3 px-4 sm:px-6 text-left text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider">
+                  Applied
                 </th>
                 <th className="py-3 px-4 sm:px-6 text-left text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider">
                   Status
@@ -304,68 +214,60 @@ const Applicants = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
-              {filteredApplicants.map((applicant, index) => {
-                const statusConfig = getStatusConfig(applicant.status);
+              {filteredApplications.map((application) => {
+                const statusConfig = getStatusConfig(application.status);
                 
                 return (
                   <tr 
-                    key={applicant.id}
+                    key={application.id}
                     className="hover:bg-slate-50 transition-colors group bg-white"
                   >
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-slate-200 transition-colors">
-                          <User className="w-5 h-5 text-slate-600" />
+                        <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+                          <Briefcase className="w-5 h-5 text-indigo-600" />
                         </div>
                         <div>
-                          <p className="font-semibold text-slate-800">{applicant.name}</p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Mail className="w-3 h-3 text-slate-600" />
-                            <p className="text-sm text-slate-700">{applicant.email}</p>
-                          </div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <MapPin className="w-3 h-3 text-slate-600" />
-                            <p className="text-sm text-slate-700">{applicant.location}</p>
-                          </div>
+                          <p className="font-semibold text-slate-800">{application.jobTitle}</p>
+                          <p className="text-sm text-slate-600">{application.company}</p>
                         </div>
                       </div>
                     </td>
                     
-                    <td className="py-4 px-6">
-                      <div>
-                        <p className="font-medium text-slate-800">{applicant.position}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Briefcase className="w-3 h-3 text-slate-600" />
-                          <p className="text-sm text-slate-700">{applicant.department}</p>
-                        </div>
-                        <p className="text-sm text-slate-700 mt-1">{applicant.experience}</p>
+                    <td className="hidden sm:table-cell py-4 px-6">
+                      <div className="flex items-center gap-2 text-slate-700">
+                        <MapPin className="w-4 h-4 text-slate-500" />
+                        {application.location}
+                      </div>
+                    </td>
+                    
+                    <td className="hidden lg:table-cell py-4 px-6">
+                      <div className="flex items-center gap-2 text-slate-800 font-medium">
+                        <DollarSign className="w-4 h-4 text-slate-500" />
+                        {application.salary}
+                      </div>
+                    </td>
+                    
+                    <td className="hidden md:table-cell py-4 px-6">
+                      <div className="flex items-center gap-2 text-slate-700">
+                        <Calendar className="w-4 h-4 text-slate-500" />
+                        {application.appliedDate}
                       </div>
                     </td>
                     
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-2 text-slate-800">
-                        <Calendar className="w-4 h-4 text-slate-600" />
-                        {applicant.applicationDate}
-                      </div>
-                    </td>
-                    
-                    <td className="py-4 px-6">
-                      <Badge className={`flex items-center gap-1.5 w-fit ${statusConfig.color}`}>
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${statusConfig.color}`}>
                         {statusConfig.icon}
-                        {applicant.status}
-                      </Badge>
+                        {application.status}
+                      </span>
                     </td>
                     
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="flex items-center gap-2 hover:bg-slate-100 text-slate-800"
-                        >
-                          <Eye className="w-4 h-4 text-slate-700" />
+                      <div className="flex items-center gap-2 justify-end">
+                        <button className="flex items-center gap-2 px-3 py-2 border border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium">
+                          <Eye className="w-4 h-4" />
                           <span>View</span>
-                        </Button>
+                        </button>
                         <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
                           <MoreHorizontal className="w-4 h-4 text-slate-700" />
                         </button>
@@ -377,30 +279,28 @@ const Applicants = () => {
             </tbody>
           </table>
           
-          {filteredApplicants.length === 0 && (
+          {filteredApplications.length === 0 && (
             <div className="text-center py-12">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center">
-                <User className="w-8 h-8 text-slate-400" />
+                <Briefcase className="w-8 h-8 text-slate-400" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">No applicants found</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No applications found</h3>
               <p className="text-slate-600 mb-4">Try adjusting your search criteria or filters</p>
-              <Button 
+              <button 
                 onClick={() => {
                   setSearchTerm('');
                   setStatusFilter('all');
                 }}
-                variant="outline"
+                className="px-4 py-2 border-2 border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium"
               >
                 Clear Filters
-              </Button>
+              </button>
             </div>
           )}
         </div>
-      </Card>
-
-
+      </div>
     </div>
   );
 };
 
-export default Applicants;
+export default MyApplications;

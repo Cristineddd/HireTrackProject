@@ -6,11 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node scripts/seedFirebase.js"
   },
   "dependencies": {
-  "lucide-react": "^0.552.0",
+    "@prisma/client": "^7.0.1",
+    "@supabase/supabase-js": "^2.86.0",
+    "lucide-react": "^0.552.0",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.0.0",
     "next": "16.0.0",
+    "prisma": "^7.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

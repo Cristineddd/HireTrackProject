@@ -2,7 +2,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
   Home,
@@ -24,13 +24,24 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [showLogoutConfirm, setShowLogoutConfirm] = React.useState(false);
 
   // Don't render the sidebar on auth pages and root landing page
   if (pathname === "/" || pathname.startsWith("/auth/")) return null;
 
   const handleLogout = () => {
+    // Clear localStorage
     localStorage.removeItem("user");
+    
+    // Clear all cookies
+    document.cookie.split(";").forEach((c) => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+    // Force redirect to login page
     window.location.href = "/auth/login";
   };
 
@@ -40,15 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
   return (
     <>
-      {/* Mobile sidebar overlay */}
-      {isOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={onClose}
-        />
-      )}
-
-      <aside className={`fixed inset-y-0 left-0 z-50 flex flex-col w-[280px] py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:w-80 h-screen overflow-y-auto ${
+      <aside className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:w-72 h-screen overflow-y-auto ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
         {/* Mobile close button */}
@@ -85,18 +88,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
       {/* Enhanced CTAs */}
       <div className="flex flex-col gap-3 mb-8">
         <button
-          onClick={() => window.location.href = '/open-positions'}
-          className="group relative flex items-center gap-2 rounded-xl bg-indigo-600 text-white px-4 py-3 text-sm font-medium shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-200 transition-all duration-300"
-        >
-          <PlusCircle className="w-5 h-5" />
-          <span>Post a Job</span>
-          <div className="absolute right-4 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center">
-            <Building2 className="w-3 h-3" />
-          </div>
-        </button>
-        <button
-          onClick={() => window.location.href = '/applicants'}
-          className="group flex items-center gap-2 rounded-xl border-2 border-slate-200 text-slate-700 px-4 py-3 text-sm font-medium hover:border-indigo-100 hover:bg-indigo-50/50 transition-all duration-300"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Find Jobs button clicked!');
+            window.location.href = '/jobs/find';
+          }}
+          className="group flex items-center gap-2 rounded-xl border-2 border-slate-200 text-slate-700 px-4 py-3 text-sm font-medium hover:border-indigo-100 hover:bg-indigo-50/50 transition-all duration-300 cursor-pointer"
         >
           <Search className="w-5 h-5" />
           <span>Find Jobs</span>
@@ -109,17 +107,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         </div>
         <ul className="space-y-2 px-2">
           {[
-            { href: "/analytics", icon: <BarChart2 className="w-5 h-5" />, label: "Analytics" },
-            { href: "/applicants", icon: <Users className="w-5 h-5" />, label: "Applicants" },
-            { href: "/open-positions", icon: <Briefcase className="w-5 h-5" />, label: "Open Positions" },
-            { href: "/scheduling", icon: <Calendar className="w-5 h-5" />, label: "Scheduling" }
+            { href: "/jobs/find", icon: <Search className="w-5 h-5" />, label: "Browse Jobs" },
+            { href: "/applicants", icon: <Users className="w-5 h-5" />, label: "My Applications" },
+            { href: "/scheduling", icon: <Calendar className="w-5 h-5" />, label: "Messages" }
           ].map((item) => {
             const isActive = pathname === item.href;
             return (
               <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className={`relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Button clicked!', item.href);
+                    window.location.href = item.href;
+                  }}
+                  className={`w-full relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 cursor-pointer
                     ${isActive 
                       ? 'text-indigo-700 bg-indigo-50 border border-indigo-100' 
                       : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
@@ -132,7 +134,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   {isActive && (
                     <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-indigo-600" />
                   )}
-                </Link>
+                </button>
               </li>
             );
           })}

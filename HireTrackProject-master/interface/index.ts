@@ -30,6 +30,7 @@ export interface User {
   lastName: string;
   role: 'admin' | 'recruiter' | 'applicant';
   companyId?: string;
+  companyName?: string;
   avatar?: string;
 }
 

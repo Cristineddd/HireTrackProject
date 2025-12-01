@@ -3,6 +3,9 @@
  * Static data and configuration values
  */
 
+// Export mock data
+export * from './mockData';
+
 // ==================== API ENDPOINTS ====================
 export const API_ENDPOINTS = {
   // Authentication
@@ -32,6 +35,7 @@ export const API_ENDPOINTS = {
     DELETE: (id: string | number) => `/positions/${id}`,
     APPLICANTS: (id: string | number) => `/positions/${id}/applicants`,
     CLOSE: (id: string | number) => `/positions/${id}/close`,
+    REOPEN: (id: string | number) => `/positions/${id}/reopen`,
   },
   
   // Analytics

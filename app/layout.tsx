@@ -37,6 +37,11 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="h-full">
+      <head>
+        <link rel="icon" href="/HT.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/HT.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/HT.svg" />
+      </head>
       <body
         className={`${inter.variable} ${poppins.variable} antialiased bg-slate-50 h-full`}
       >

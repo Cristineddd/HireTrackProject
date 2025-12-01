@@ -111,11 +111,6 @@ const SignUpPage = () => {
         {/* Top Branding */}
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <img 
-              src="/HT.svg" 
-              alt="HireTrack Logo" 
-              className="w-12 h-12 object-contain"
-            />
             <div>
               <h1 className="text-3xl font-black text-white">HireTrack</h1>
               <p className="text-white/70 text-sm">Your Recruitment Success Partner</p>
@@ -215,11 +210,6 @@ const SignUpPage = () => {
           {/* Top Branding - Mobile */}
           <div className="lg:hidden mb-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <img 
-                src="/HT.svg" 
-                alt="HireTrack Logo" 
-                className="w-8 h-8 object-contain"
-              />
               <div className="text-left">
                 <h1 className="text-2xl font-black text-[#1D2530]">HireTrack</h1>
                 <p className="text-[#6F7C90] text-xs">Your Recruitment Success Partner</p>

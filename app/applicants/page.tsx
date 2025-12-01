@@ -125,8 +125,8 @@ const MyApplications = () => {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 w-full">
-      <div className="w-full px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 w-full flex flex-col">
+      <div className="w-full px-4 py-4 sm:px-6 sm:py-6 lg:px-8 flex-1">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

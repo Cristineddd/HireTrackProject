@@ -46,12 +46,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   
   // Dynamic job pages
-  const jobPages: MetadataRoute.Sitemap = jobs.map(job => ({
-    url: `${baseUrl}/jobs/${job.id}`,
-    lastModified: new Date(job.postedDate),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+  const jobPages: MetadataRoute.Sitemap = jobs.map(job => {
+    const postedDate = job.postedDate ? new Date(job.postedDate) : new Date();
+    // Validate the date is valid
+    const lastModified = isNaN(postedDate.getTime()) ? new Date() : postedDate;
+    
+    return {
+      url: `${baseUrl}/jobs/${job.id}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    };
+  });
   
   return [...staticPages, ...jobPages];
 }

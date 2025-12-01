@@ -69,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
           className="w-10 h-10 object-contain"
         />
         <div>
-          <h2 className="text-xl font-bold text-indigo-700">
+          <h2 className="text-xl font-bold text-blue-600">
             HireTrack
           </h2>
           <p className="text-sm text-slate-600 font-medium">

@@ -51,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
   return (
     <>
-      <aside className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:static lg:w-72 lg:z-auto lg:inset-auto lg:transform-none overflow-y-auto ${
+      <aside className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 py-4 px-4 sm:py-6 sm:px-6 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out lg:static lg:w-72 lg:inset-auto lg:z-auto lg:transform-none lg:h-screen overflow-y-auto ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>
         {/* Mobile close button */}

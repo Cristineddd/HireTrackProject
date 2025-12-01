@@ -36,9 +36,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${inter.variable} ${poppins.variable} antialiased bg-slate-50`}
+        className={`${inter.variable} ${poppins.variable} antialiased bg-slate-50 h-full`}
       >
         <NotificationProvider>
           {showMobileHeader && (
@@ -53,11 +53,11 @@ export default function RootLayout({
               </button>
             </header>
           )}
-          <div className="flex w-full min-h-screen">
+          <div className="flex w-full h-full lg:h-screen">
             {!isAuthPage && (
               <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             )}
-            <main className={`flex-1 w-full overflow-y-auto ${showMobileHeader ? 'pt-16 lg:pt-0' : ''}`}>
+            <main className={`flex-1 w-full overflow-y-auto overflow-x-hidden ${showMobileHeader ? 'pt-16 lg:pt-0' : ''}`}>
               {children}
             </main>
           </div>

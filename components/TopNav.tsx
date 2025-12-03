@@ -54,7 +54,7 @@ const TopNav: React.FC<TopNavProps> = ({ isOpen = false, onToggle }) => {
             {/* Logo - Left Side */}
             <div className="flex items-center gap-2">
               <img 
-                src="/Logo.svg" 
+                src="/Logo.png" 
                 alt="HireTrack Logo" 
                 className="w-8 h-8 object-contain"
               />

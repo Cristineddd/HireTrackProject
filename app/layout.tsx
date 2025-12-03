@@ -102,14 +102,14 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: '/Logo.svg', sizes: '32x32' },
-      { url: '/Logo.svg', sizes: '16x16' },
+      { url: '/Logo.png', sizes: '32x32' },
+      { url: '/Logo.png', sizes: '16x16' },
     ],
-    apple: '/Logo.svg',
+    apple: '/Logo.png',
     other: [
       {
         rel: 'mask-icon',
-        url: '/Logo.svg',
+        url: '/Logo.png',
         color: '#4F46E5',
       },
     ],
@@ -184,7 +184,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="dns-prefetch" href="https://api.hiretrack.app" />
         
         {/* Preload critical resources */}
-        <link rel="preload" as="image" href="/Logo.svg" />
+        <link rel="preload" as="image" href="/Logo.png" />
         
         {/* Mobile web app */}
         <meta name="mobile-web-app-capable" content="yes" />

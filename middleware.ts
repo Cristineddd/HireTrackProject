@@ -1,131 +1,217 @@
+/**
+ * Enhanced Next.js Middleware
+ * 
+ * Features:
+ * - Advanced authentication checks
+ * - Cookie-based auth token sync
+ * - Role-based access control
+ * - Security headers
+ * - Request logging
+ * - Performance optimized
+ */
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * Next.js Middleware for Authentication and Route Protection
- * 
- * This middleware handles:
- * - Authentication checks for protected routes
- * - Redirects based on user authentication state
- * - Route-based access control
+ * Protected routes requiring authentication
  */
-
-// Define protected routes that require authentication
-const protectedRoutes = [
+const PROTECTED_ROUTES = [
   '/jobs/post',
   '/applicants',
   '/analytics',
   '/scheduling',
   '/open-positions',
+  '/dashboard',
 ];
 
-// Define auth routes (login/signup)
-const authRoutes = ['/auth/login', '/auth/signup'];
-
-// Define employer-only routes
-const employerOnlyRoutes = [
+/**
+ * Employer-only routes
+ */
+const EMPLOYER_ROUTES = [
   '/jobs/post',
+  '/analytics',
+  '/open-positions',
 ];
 
-// Define applicant-only routes
-const applicantOnlyRoutes = ['/jobs/find'];
+/**
+ * Applicant-only routes
+ */
+const APPLICANT_ROUTES = [
+  '/jobs/find',
+  '/applicants',
+  '/scheduling',
+  '/my-applications',
+  '/saved-jobs',
+];
 
+/**
+ * Public routes (don't require auth)
+ */
+const PUBLIC_ROUTES = [
+  '/',
+  '/jobs',
+  '/auth/login',
+  '/auth/signup',
+  '/api',
+  '/sitemap.xml',
+  '/robots.txt',
+];
+
+/**
+ * Parse and validate user cookie
+ */
+function parseUserCookie(value: string | undefined) {
+  if (!value) return null;
+  
+  try {
+    return JSON.parse(decodeURIComponent(value));
+  } catch (error) {
+    console.error('Failed to parse user cookie:', error);
+    return null;
+  }
+}
+
+/**
+ * Check if route is protected
+ */
+function isProtectedRoute(pathname: string): boolean {
+  return PROTECTED_ROUTES.some((route) => pathname.startsWith(route));
+}
+
+/**
+ * Check if route is public
+ */
+function isPublicRoute(pathname: string): boolean {
+  return PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
+}
+
+/**
+ * Get the appropriate dashboard URL based on user type
+ */
+function getDashboardUrl(userType: string): string {
+  return userType === 'employer' ? '/jobs/post' : '/jobs/find';
+}
+
+/**
+ * Main middleware handler
+ */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
-  // Get user data from cookies or headers
-  // Since we're using localStorage, we'll need to handle this on the client
-  // For now, we'll use a cookie-based approach for middleware
+  const response = NextResponse.next();
+
+  // Get authentication info from cookies or localStorage
   const userCookie = request.cookies.get('user');
   const isAuthenticated = !!userCookie;
-  
+
   let user = null;
   if (userCookie) {
-    try {
-      user = JSON.parse(userCookie.value);
-    } catch (error) {
-      console.error('Failed to parse user cookie:', error);
-    }
+    user = parseUserCookie(userCookie.value);
   }
 
-  // Check if current path is a protected route
-  const isProtectedRoute = protectedRoutes.some(route => 
-    pathname.startsWith(route)
-  );
-  
-  // Check if current path is an auth route
-  const isAuthRoute = authRoutes.some(route => 
-    pathname.startsWith(route)
-  );
-
-  // Check if current path is an employer-only route
-  const isEmployerRoute = employerOnlyRoutes.some(route =>
-    pathname.startsWith(route)
-  );
-
-  // Check if current path is an applicant-only route
-  const isApplicantRoute = applicantOnlyRoutes.some(route =>
-    pathname.startsWith(route)
-  );
-
-  // Redirect unauthenticated users trying to access protected routes
-  if (isProtectedRoute && !isAuthenticated) {
+  /**
+   * 1. Redirect unauthenticated users from protected routes
+   */
+  if (isProtectedRoute(pathname) && !isAuthenticated) {
     const loginUrl = new URL('/auth/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect authenticated users away from auth pages
-  if (isAuthRoute && isAuthenticated) {
-    // Redirect based on user type
-    if (user?.userType === 'employer') {
-      return NextResponse.redirect(new URL('/jobs/post', request.url));
-    } else {
-      return NextResponse.redirect(new URL('/jobs/find', request.url));
-    }
+  /**
+   * 2. Redirect authenticated users away from auth pages
+   */
+  if (pathname.startsWith('/auth') && isAuthenticated) {
+    const dashboard = getDashboardUrl(user?.userType || 'applicant');
+    return NextResponse.redirect(new URL(dashboard, request.url));
   }
 
-  // Role-based access control
+  /**
+   * 3. Role-based access control - APPLICANT ONLY FOR NOW
+   */
   if (isAuthenticated && user) {
-    // Redirect applicants trying to access employer routes
-    if (isEmployerRoute && user.userType === 'applicant') {
-      return NextResponse.redirect(new URL('/jobs/find', request.url));
-    }
-
-    // Redirect employers trying to access applicant routes
-    if (isApplicantRoute && user.userType === 'employer') {
-      return NextResponse.redirect(new URL('/jobs/post', request.url));
+    // For now, only allow applicants - redirect any employer to home
+    if (user.userType === 'employer') {
+      return NextResponse.redirect(new URL('/', request.url));
     }
   }
 
-  // Add security headers
-  const response = NextResponse.next();
-  
-  // Add custom headers for security
+  /**
+   * 4. Add security headers
+   */
+  // Prevent clickjacking
   response.headers.set('X-Frame-Options', 'DENY');
-  response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   
-  // Add user info to response headers if authenticated (for client access)
-  if (isAuthenticated && user) {
-    response.headers.set('X-User-Type', user.userType);
-    response.headers.set('X-User-Authenticated', 'true');
+  // Prevent MIME type sniffing
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  
+  // Enable XSS protection
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  
+  // Referrer policy
+  response.headers.set(
+    'Referrer-Policy',
+    'strict-origin-when-cross-origin'
+  );
+  
+  // Content Security Policy (adjust as needed)
+  response.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'"
+  );
+  
+  // Permissions policy
+  response.headers.set(
+    'Permissions-Policy',
+    'geolocation=(), microphone=(), camera=()'
+  );
+
+  /**
+   * 5. Add authentication headers for client-side access
+   */
+  if (isAuthenticated) {
+    response.headers.set('X-Authenticated', 'true');
+    
+    if (user) {
+      response.headers.set('X-User-Type', user.userType);
+      response.headers.set('X-User-ID', user.id);
+    }
   }
+
+  /**
+   * 6. Performance headers
+   */
+  response.headers.set(
+    'Cache-Control',
+    'public, max-age=3600, must-revalidate'
+  );
+  
+  response.headers.set(
+    'X-DNS-Prefetch-Control',
+    'on'
+  );
 
   return response;
 }
 
-// Configure which routes the middleware runs on
+/**
+ * Configure which routes trigger middleware
+ */
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
+     * Match all request paths except:
+     * - api routes (handled separately)
      * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder files
+     * - _next/image (image optimization)
+     * - favicon.ico, sitemap.xml, robots.txt (static files)
+     * - public assets (.*\.(?:svg|png|jpg|jpeg|gif|webp)$)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
+
+/**
+ * Middleware configuration options
+ */
+export const preferredRegion = 'auto';

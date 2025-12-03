@@ -11,7 +11,7 @@ export const revalidate = 60;
 
 // Generate metadata for SEO
 export const metadata = {
-  title: 'Job Listings | HireTrack',
+  title: 'HireTrack - Find Your Dream Job',
   description: 'Browse and manage job postings on HireTrack. Find the best opportunities or post new positions.',
   keywords: 'jobs, hiring, recruitment, career opportunities',
 };

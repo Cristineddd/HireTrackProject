@@ -142,7 +142,7 @@ export function generateJobPostingSchema(job: {
     },
     baseSalary: job.salary ? {
       '@type': 'MonetaryAmount',
-      currency: 'USD',
+      currency: 'PHP',
       value: {
         '@type': 'QuantitativeValue',
         value: job.salary,

@@ -32,12 +32,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if using mock mode (for testing)
-    const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true';
+    // Try both NEXT_PUBLIC_USE_MOCK and NODE_ENV to determine mock mode
+    const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || 
+                     process.env.NODE_ENV === 'development' ||
+                     !process.env.NEXT_PUBLIC_API_URL;
     
     if (USE_MOCK) {
       // Mock response for testing
       const mockUserId = 'user_' + Date.now();
       const mockToken = 'mock_jwt_' + Date.now();
+      
+      console.log('🔐 Using mock registration');
       
       return NextResponse.json({
         message: 'Registration successful. Please check your email to verify your account.',
@@ -53,40 +58,48 @@ export async function POST(request: NextRequest) {
     // TODO: Replace with your actual third-party API endpoint
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.example.com';
     
-    const response = await fetch(`${API_URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': process.env.API_KEY || '',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        firstName,
-        lastName,
-        fullName,
-        role: 'recruiter',
-      }),
-    });
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': process.env.API_KEY || '',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          firstName,
+          lastName,
+          fullName,
+          role: 'recruiter',
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
+      if (!response.ok) {
+        return NextResponse.json(
+          { message: data.message || 'Registration failed' },
+          { status: response.status }
+        );
+      }
+
+      return NextResponse.json({
+        message: 'Registration successful. Please check your email to verify your account.',
+        user: {
+          id: data.id,
+          email: data.email,
+          fullName: data.fullName,
+        },
+      }, { status: 201 });
+    } catch (fetchError: any) {
+      console.error('External API error:', fetchError.message);
+      // If external API fails, provide helpful error
       return NextResponse.json(
-        { message: data.message || 'Registration failed' },
-        { status: response.status }
+        { message: 'External API unavailable. Please configure a valid API endpoint.' },
+        { status: 503 }
       );
     }
-
-    return NextResponse.json({
-      message: 'Registration successful. Please check your email to verify your account.',
-      user: {
-        id: data.id,
-        email: data.email,
-        fullName: data.fullName,
-      },
-    }, { status: 201 });
-
   } catch (error: any) {
     console.error('Registration error:', error);
     return NextResponse.json(

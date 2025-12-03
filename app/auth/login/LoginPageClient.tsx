@@ -46,7 +46,19 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      let data;
+      const contentType = response.headers.get('content-type');
+      
+      try {
+        if (contentType?.includes('application/json')) {
+          data = await response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(`Server error: ${text.substring(0, 100)}`);
+        }
+      } catch (parseError: any) {
+        throw new Error(parseError.message || 'Failed to parse server response');
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
@@ -71,6 +83,7 @@ const LoginPage = () => {
       router.push("/jobs/find");
     } catch (err: any) {
       setError(err.message || "Login failed. Please try again.");
+      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }

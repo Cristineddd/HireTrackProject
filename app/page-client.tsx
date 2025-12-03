@@ -109,7 +109,7 @@ const LandingPage = () => {
         <div className="flex items-center gap-2 group cursor-pointer shrink-0">
           <div className="w-8 h-8 lg:w-10 lg:h-10 transition-all group-hover:scale-105">
             <Image 
-              src="/HT.svg" 
+              src="/Logo.png" 
               alt="HireTrack Logo" 
               width={40}
               height={40}

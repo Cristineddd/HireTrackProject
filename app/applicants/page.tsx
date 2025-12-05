@@ -14,8 +14,8 @@ import {
   AlertCircle,
   Download,
   DollarSign,
-  MoreHorizontal,
-  ArrowDown
+  ArrowDown,
+  Trash2
 } from "lucide-react";
 import { MOCK_JOBS } from '@/constants/mockData';
 
@@ -34,10 +34,23 @@ const MyApplications = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [applications, setApplications] = useState<Application[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const applicationsRef = useRef<HTMLDivElement>(null);
   
   const handleScrollToApplications = () => {
     applicationsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleDeleteApplication = (appId: string) => {
+    setApplications((prev) => prev.filter(app => app.id !== appId));
+    
+    // Also update localStorage
+    const savedApplicationIds = localStorage.getItem('applications');
+    const appliedJobIds = savedApplicationIds ? JSON.parse(savedApplicationIds) : [];
+    const updatedIds = appliedJobIds.filter((id: string) => id !== appId);
+    localStorage.setItem('applications', JSON.stringify(updatedIds));
+    
+    setDeleteConfirmId(null);
   };
   
   // Load applications from localStorage
@@ -215,10 +228,39 @@ const MyApplications = () => {
                         <Eye className="w-5 h-5 shrink-0" />
                         <span>View</span>
                       </button>
-                      <button className="p-2.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0">
-                        <MoreHorizontal className="w-5 h-5 text-slate-700" />
+                      <button 
+                        onClick={() => setDeleteConfirmId(application.id)}
+                        className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors shrink-0"
+                        title="Withdraw Application"
+                      >
+                        <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
+
+                    {/* Delete Confirmation Modal */}
+                    {deleteConfirmId === application.id && (
+                      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
+                          <h3 className="text-lg font-bold text-slate-900 mb-2">Withdraw Application?</h3>
+                          <p className="text-slate-600 text-sm mb-6">Are you sure you want to withdraw your application for <strong>{application.jobTitle}</strong>? This action cannot be undone.</p>
+                          <div className="flex gap-3">
+                            <button
+                              onClick={() => setDeleteConfirmId(null)}
+                              className="flex-1 px-4 py-2.5 border border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium text-sm"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={() => handleDeleteApplication(application.id)}
+                              className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm flex items-center justify-center gap-2"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              Withdraw
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })
@@ -295,8 +337,12 @@ const MyApplications = () => {
                                 <Eye className="w-4 h-4 shrink-0" />
                                 <span>View</span>
                               </button>
-                              <button className="p-1.5 hover:bg-slate-100 rounded transition-colors shrink-0">
-                                <MoreHorizontal className="w-4 h-4 text-slate-700" />
+                              <button 
+                                onClick={() => setDeleteConfirmId(application.id)}
+                                className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors shrink-0"
+                                title="Withdraw Application"
+                              >
+                                <Trash2 className="w-4 h-4" />
                               </button>
                             </div>
                           </td>
@@ -324,8 +370,34 @@ const MyApplications = () => {
                 </tbody>
               </table>
             </div>
+
           </div>
         </div>
+
+        {/* Delete Confirmation Modal */}
+        {deleteConfirmId && (
+          <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Withdraw Application?</h3>
+              <p className="text-slate-600 text-sm mb-6">Are you sure you want to withdraw your application for <strong>{filteredApplications.find(a => a.id === deleteConfirmId)?.jobTitle}</strong>? This action cannot be undone.</p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setDeleteConfirmId(null)}
+                  className="flex-1 px-4 py-2.5 border border-slate-300 bg-white text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleDeleteApplication(deleteConfirmId)}
+                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm flex items-center justify-center gap-2"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Withdraw
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         </div>
       </div>
     </div>

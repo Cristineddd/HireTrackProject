@@ -239,43 +239,100 @@ export default async function JobPage({ params }: JobPageProps) {
               </article>
 
               {/* Sidebar */}
-              <aside className="lg:col-span-1">
-                {/* Quick Info */}
-                <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm sticky top-20">
-                  <h3 className="text-lg font-bold text-slate-900 mb-6">Quick Info</h3>
-                  <dl className="space-y-4">
-                    <div className="border-b border-slate-100 pb-4">
-                      <dt className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Job Type</dt>
-                      <dd className="text-slate-900 font-medium">{job.type}</dd>
+              <aside className="lg:col-span-2">
+                {/* Quick Info - Clean Card Design */}
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                  <h3 className="text-lg font-bold text-slate-900 mb-5">Quick Info</h3>
+                  <div className="space-y-4">
+                    {/* Job Type */}
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15a23.931 23.931 0 01-9-1.745M12 9a3 3 0 100-6 3 3 0 000 6z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Job Type</p>
+                          <p className="text-sm font-semibold text-slate-900 mt-1">{job.type}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border-b border-slate-100 pb-4">
-                      <dt className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Location</dt>
-                      <dd className="text-slate-900 font-medium">{job.location}</dd>
+
+                    {/* Location */}
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Location</p>
+                          <p className="text-sm font-semibold text-slate-900 mt-1">{job.location}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border-b border-slate-100 pb-4">
-                      <dt className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Experience</dt>
-                      <dd className="text-slate-900 font-medium">{job.experience}</dd>
+
+                    {/* Experience */}
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Experience</p>
+                          <p className="text-sm font-semibold text-slate-900 mt-1">{job.experience}</p>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Salary */}
                     {job.salary && (
-                      <div className="border-b border-slate-100 pb-4">
-                        <dt className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Salary</dt>
-                        <dd className="text-slate-900 font-medium">{job.salary}</dd>
+                      <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Salary Range</p>
+                            <p className="text-sm font-semibold text-slate-900 mt-1">{job.salary}</p>
+                          </div>
+                        </div>
                       </div>
                     )}
-                    <div>
-                      <dt className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Applications</dt>
-                      <dd className="text-slate-900 font-medium">{job.applicants || 0}</dd>
+
+                    {/* Applications */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 8.048M12 4.354a4 4 0 018.048 0M12 12v8m-4-4h8" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Applications</p>
+                          <p className="text-sm font-semibold text-slate-900 mt-1">{job.applicants || 0}</p>
+                        </div>
+                      </div>
                     </div>
-                  </dl>
+                  </div>
                 </div>
 
                 {/* Similar Jobs */}
                 {relatedJobs && relatedJobs.length > 0 && (
                   <div className="mt-6">
                     <h3 className="text-lg font-bold text-slate-900 mb-4">Similar Jobs</h3>
-                    <Suspense fallback={<div className="space-y-3">{[1,2,3].map(i => <div key={i} className="bg-slate-200 rounded-lg h-20 animate-pulse" />)}</div>}>
-                      <RelatedJobs jobs={relatedJobs} compact={true} />
-                    </Suspense>
+                    <div className="space-y-3">
+                      <Suspense fallback={<div className="space-y-3">{[1,2,3].map(i => <div key={i} className="bg-slate-200 rounded-lg h-14 animate-pulse" />)}</div>}>
+                        <RelatedJobs jobs={relatedJobs} compact={true} />
+                      </Suspense>
+                    </div>
                   </div>
                 )}
               </aside>
